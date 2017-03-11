@@ -24,20 +24,26 @@
             <ul class="nav navbar-nav navbar-right">
                 <li class="active"><a href="#">Home</a></li>
                 <li><a href="#">Saved articles</a></li>
-                <li><a href="#">New articles</a></li>
             </ul>
         </div>
     </nav>
     <div class="container">
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="jumbotron">
-                    <h1>Mongo Scraper</h1>
-                    <p>El norte - news</p>
-                    <p><a class="btn btn-primary btn-lg" href="#" role="button">Scrape new articles</a></p>
+        <h1>Notes for the article</h1>
+        <div id="userinput">
+            <p>Title</p>
+            <input type="text" id="title" />
+            <br>
+            <p>Note</p>
+            <textarea id="note"></textarea>
+            <div id="buttons">
+                <div id="actionbutton">
+                    <button id="makenew">Submit</button>
                 </div>
+                <button id="clearall">Delete All Notes</button>
             </div>
         </div>
+        <div id="results"></div>
+        <script src="app.js"></script>
     </div>
 </body>
 

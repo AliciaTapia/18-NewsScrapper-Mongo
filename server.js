@@ -13,18 +13,20 @@ var mongojs = require("mongojs");
 var request = require("request");
 var cheerio = require("cheerio");
 
+var bodyParser = require("body-parser");
+
 
 // Initialize Express
 var app = express();
 
 
 // Set up a static folder (public) for our web app (so it will dosplay our index.html)
-app.use(express.static("public"));
+app.use(express.static("./public"));
 
 // Database configuration
 // Save the URL of our database as well as the name of our collection
-var databaseUrl = "scraper";
-var collections = ["scrapedData"];
+var databaseUrl = "news";
+var collections = ["articles"];
 
 // Hook mongojs configuration to the db variable
 var db = mongojs(databaseUrl, collections);
@@ -33,6 +35,28 @@ var db = mongojs(databaseUrl, collections);
 db.on("error", function(error) {
   console.log("Database Error:", error);
 });
+
+// Sets up the Express app to handle data parsing
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.text());
+app.use(bodyParser.json({ type: "application/vnd.api+json" }));
+
+
+// Routes =============================================================
+
+//require("./routes/home-routes.js")(app);
+//require("./routes/html-routes.js")(app);
+//require("./routes/saved-routes.js")(app);
+
+
+
+// Listen on port 3000
+app.listen(3000, function() {
+  console.log("App running on port 3000!");
+});
+
+
 
 
 /* ==========  Scraper ================ */
@@ -55,35 +79,53 @@ request("http://www.elnorte.com/", function(error, response, html) {
   var result = [];
 
   // With cheerio, find each h4-tag with the class "headline-link"
-  $("a.ligaonclick").each(function(i, element) {
+  $("div.ic_container").each(function(i, element) {
 
     // Save the text of the h4-tag as "title"
-    var title = $(this).text();
+    var title = $(this).find("h1");
 
     // Find the h4 tag's parent a-tag, and save it's href value as "link"
-    var link = $(element).parent().attr("href");
-
-    // For each h4-tag, make an object with data we scraped and push it to the result array
-    result.push({
-      title: title,
-      link: link
-    });
-
-  });
-
- 
-  $("div.foto").each(function(i, element) {
-
+    var link = $(this).find("a").find("ligaonclick");
     /* Cheerio's find method will "find" the first matching child element in a parent.
      *    We start at the current element, then "find" its first child a-tag.
      *    Then, we "find" the lone child img-tag in that a-tag.
      *    Then, .attr grabs the imgs src value.
      * So: <figure>  ->  <a>  ->  <img src="link">  ->  "link"  */
-    var imgLink = $(element).find("a").find("img").attr("src");
+    var imgLink = $(this).find("script").find("img").attr("src");
 
-    // Push the image's URL (saved to the imgLink var) into the result array
-    result.push({ Link: imgLink });
+// // If this title element had both a title and a link
+//       if (title && link) {
+//         // Save the data in the scrapedData db
+//         db.article.save({
+//           title: title,
+//           link: link
+//           imgLink: imgLink
+//         },
+//         function(error, saved) {
+//           // If there's an error during this query
+//           if (error) {
+//             // Log the error
+//             console.log(error);
+//           }
+//           // Otherwise,
+//           else {
+//             // Log the saved data
+//             console.log(saved);
+//           }
+//         });
+//       }
+  
+    // For each h4-tag, make an object with data we scraped and push it to the result array
+    result.push({
+      title: title,
+      link: link,
+      imgLink: imgLink
+    });
+
   });
+
+ 
+ 
 
   // After the program scans each h4.headline-link, log the result
   console.log(result);
@@ -102,11 +144,4 @@ app.get("/", function(req, res) {
 // Route 2
 
 // Route 3
-
-
-// Listen on port 3000
-app.listen(3000, function() {
-  console.log("App running on port 3000!");
-});
-
 
