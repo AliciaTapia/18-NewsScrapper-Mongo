@@ -1,10 +1,3 @@
-/*Whenever a user visits your site, the app will scrape stories from a news outlet of your choice. The data should at least include a link to the story and a headline, but feel free to add more content to your database (photos, bylines, and so on).
-Use Cheerio to grab the site content and Mongoose to save it to your MongoDB database.
-
-All users can leave comments on the stories you collect. They should also be allowed to delete whatever comments they want removed. All stored comments should be visible to every user.
-
-You'll need to use Mongoose's model system to associate comments with particular articles.*/
-
 
 // Dependencies
 var express = require("express");
@@ -79,13 +72,14 @@ request("http://www.elnorte.com/", function(error, response, html) {
   var result = [];
 
   // With cheerio, find each h4-tag with the class "headline-link"
-  $("div.ic_container").each(function(i, element) {
+  $("div.mdl.n.x1.y1.ic_container").each(function(i, element) {
 
     // Save the text of the h4-tag as "title"
-    var title = $(this).find("h1");
+    var title = $(this).find("h1").text();
 
     // Find the h4 tag's parent a-tag, and save it's href value as "link"
-    var link = $(this).find("a").find("ligaonclick");
+    var link = $(this).find("div.caption h1 .ligaonclick").attr('href');
+   
     /* Cheerio's find method will "find" the first matching child element in a parent.
      *    We start at the current element, then "find" its first child a-tag.
      *    Then, we "find" the lone child img-tag in that a-tag.
