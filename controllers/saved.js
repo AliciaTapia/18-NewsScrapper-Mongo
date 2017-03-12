@@ -3,6 +3,7 @@ var Note = require("../models/note.js");
 var Article = require("../models/article.js");
 var request = require("request");
 var cheerio = require("cheerio");
+var bodyParser = require("body-parser");
 
 module.exports = {
 

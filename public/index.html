@@ -1,18 +1,17 @@
 <!DOCTYPE html>
 <html lang="en-us">
-  <head>
+
+<head>
     <meta charset="UTF-8">
     <title>Mongo-Scrape News</title>
-
-    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-     <!-- Bootstrap Core CSS -->
+    <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <!-- Theme CSS -->
-    <link href="/public/style.css" rel="stylesheet">
+    <link href="style.css" rel="stylesheet">
     <!-- Custom Fonts -->
-    <link href='//fonts.googleapis.com/css?family=Cormorant SC' rel='stylesheet'>
-    <link href='//fonts.googleapis.com/css?family=Moul' rel='stylesheet'>
-    </head>
+    <link href='http://fonts.googleapis.com/css?family=Cormorant SC' rel='stylesheet' type='text'>
+    <link href='http://fonts.googleapis.com/css?family=Moul' rel='stylesheet' type='text'>
+</head>
 
 <body>
     <!-- Basic Bootstrap Navigation Bar -->
@@ -24,7 +23,6 @@
             <ul class="nav navbar-nav navbar-right">
                 <li class="active"><a href="#">Home</a></li>
                 <li><a href="#">Saved articles</a></li>
-                
             </ul>
         </div>
     </nav>
@@ -36,28 +34,14 @@
                     <p>El norte - news</p>
                     <p><a class="btn btn-primary btn-lg" href="#" role="button">Scrape new articles</a></p>
                 </div>
-
-<form>
-    <fieldset>
-        <legend> Today's Articles</legend>
-        <div id="results"></div>
-    </fieldset>
-</form>
-
-
-
-
+                <h2> Today's Articles</h2>
+                <div id="results"></div>
             </div>
         </div>
     </div>
-
-
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+    <script src="app.js"></script>
 </body>
-
-
-<!-- jQuery -->
-<script src="vendor/jquery/jquery.min.js"></script>
-<!-- Bootstrap Core JavaScript -->
-<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
 
 </html>

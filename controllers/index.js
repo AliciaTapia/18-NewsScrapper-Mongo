@@ -1,4 +1,4 @@
-
+    
 // Requiring our Note and Article models
 var Note = require("../models/note.js");
 var Article = require("../models/article.js");
@@ -36,7 +36,7 @@ module.exports = {
                     }
                     // Or log the doc
                     else {
-                        res.json(doc);
+                        console.log(doc);
                         //console.log(doc);
                     }
                 });
