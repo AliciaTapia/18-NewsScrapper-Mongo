@@ -1,7 +1,10 @@
 
 // Requiring our Note and Article models
-var Note = require("./models/note.js");
-var Article = require("./models/article.js");
+var Note = require("../models/note.js");
+var Article = require("../models/article.js");
+var request = require("request");
+var cheerio = require("cheerio");
+var bodyParser = require("body-parser");
 
 module.exports = {
     // A GET request to scrape the echojs website
@@ -34,6 +37,7 @@ module.exports = {
                     // Or log the doc
                     else {
                         res.json(doc);
+                        //console.log(doc);
                     }
                 });
 
