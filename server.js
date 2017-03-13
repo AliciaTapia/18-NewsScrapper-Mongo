@@ -30,7 +30,9 @@ app.use(express.static("public"));
 
 // Database configuration with mongoose
 //mongoose.connect("mongodb://localhost/news");
-mongoose.connect("mongodb://heroku_gfl44np2:n9dg33qgkqtftultnegogsv5gr@ds125060.mlab.com:25060/heroku_gfl44np2");
+
+mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/news");
+//mongoose.connect("mongodb://heroku_gfl44np2:n9dg33qgkqtftultnegogsv5gr@ds125060.mlab.com:25060/heroku_gfl44np2");
 
 var db = mongoose.connection;
 
